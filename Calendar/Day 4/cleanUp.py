@@ -18,13 +18,14 @@ class Range:
 
 
 file = open("input")
+pairs = file.read().strip().split('\n')
+file.close()
+
 numSurrounded = 0
 numOverlapping = 0
-for line in file:
-    if line == '':
-        continue
 
-    ranges = line[:-1].split(',')
+for pair in pairs:
+    ranges = pair.split(',')
     rangeA = Range.fromString(ranges[0])
     rangeB = Range.fromString(ranges[1])
 
@@ -36,5 +37,3 @@ for line in file:
 
 print(f"Number of pairs in which one range fully contains the other: {numSurrounded}")
 print(f"Number of pairs in which one range overlaps the other: {numOverlapping}")
-
-file.close()

@@ -14,13 +14,14 @@ def slide(target: str, newItem: str) -> str:
 
 
 file = open('input')
-signal = file.read()
+signal = file.read().strip()
 file.close()
 
 packetMarker = signal[0:4]
 messageMarker = signal[0:14]
 firstMarker = None
 firstMessage = None
+
 for index, char in enumerate(signal):
     # add the char to the markers
     packetMarker = slide(packetMarker, char)

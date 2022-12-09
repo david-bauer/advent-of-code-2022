@@ -1,4 +1,7 @@
-def findCommonChars(*strings):
+def findCommonChars(*strings: str) -> list[str]:
+    """
+    returns a list of the characters that are included in every argument
+    """
     commonChars = []
     # compare each character in the first string with all the characters in the other strings
     for char in strings[0]:
@@ -11,7 +14,11 @@ def findCommonChars(*strings):
             commonChars.append(char)
     return commonChars
 
-def priority(char):
+
+def priority(char: str) -> int:
+    """
+    calculates the priority value of the character
+    """
     if ord(char) < ord('a'):
         # uppercase
         return ord(char) - ord('A') + 27
@@ -21,18 +28,17 @@ def priority(char):
 
 
 file = open('input')
-rucksacks = file.read().split('\n')
+rucksacks = file.read().strip().split('\n')
+file.close()
+
 prioritySum = 0
+
 for rucksack in rucksacks:
-    if rucksack == '':
-        continue
+    # each rucksack has two equally filled compartments
     barrier = int(len(rucksack) / 2)
     part1 = rucksack[:barrier]
     part2 = rucksack[barrier:]
-    if len(part1) != len(part2):
-        print(f"The input includes an incorrectly formed rucksack with an odd number of items."
-                         "The items in this rucksack cannot be split evenly between the compartments")
-        exit
+
     commonChars = findCommonChars(part1, part2)
     for common in commonChars:
         prioritySum += priority(common)
