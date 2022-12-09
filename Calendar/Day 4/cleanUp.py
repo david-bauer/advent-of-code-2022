@@ -7,46 +7,14 @@ class Range:
         return self.start <= other.start and self.end >= other.end
 
     def overlaps(self, other) -> bool:
-        for value in self:
-            if value in other:
-                return True
-        return False
+        return not (self.end < other.start or other.end < self.start)
 
     def fromString(text:str):
         values = text.split('-')
         return Range(int(values[0]), int(values[1]))
 
-    def __contains__(self, item:int) -> bool:
-        return self.start <= item <= self.end
-
-    def __len__(self) -> int:
-        return self.end - self.start + 1
-
-    def __lt__(self, other) -> bool:
-        if self.__len__() == other.__len__():
-            return self.start < other.end
-        return self.__len__() < other.__len__()
-
-    def __eq__(self, other) -> bool:
-        return self.__len__() == other.__len__() and self.start == other.start and self.end == other.end
-
-    def __iter__(self):
-        self.iterator = self.start
-        return self
-
-    def __next__(self):
-        if self.iterator <= self.end:
-            result = self.iterator
-            self.iterator += 1
-            return result
-        else:
-            raise StopIteration
-
     def __repr__(self):
-        return repr((self.start, self.end, self.__len__()))
-
-    def __str__(self):
-        return f"{self.start}-{self.end}"
+        return repr((self.start, self.end))
 
 
 file = open("input")
@@ -56,7 +24,7 @@ for line in file:
     if line == '':
         continue
 
-    ranges = line.split(',')
+    ranges = line[:-1].split(',')
     rangeA = Range.fromString(ranges[0])
     rangeB = Range.fromString(ranges[1])
 

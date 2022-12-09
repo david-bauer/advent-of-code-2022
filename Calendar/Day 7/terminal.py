@@ -20,13 +20,10 @@ class File:
             return self.__add__(other)
 
     def __lt__(self, other):
-        return (self.getSize() < other.getSize())
+        return self.getSize() < other.getSize()
 
     def __repr__(self) -> str:
         return repr((self.name, self.getSize()))
-
-    def __str__(self) -> str:
-        return f"File {self.name} of size {self.size}"
 
 
 class Directory(File):
@@ -48,23 +45,21 @@ class Directory(File):
                 return child
         return None
 
-    def __str__(self) -> str:
-        return f"Directory: {self.name}"
-
 
 currentDir: Directory = Directory('/', None)
 dirList: [Directory] = [currentDir]
 
 file = open('input')
+# process the terminal output line by line
 for terminalLine in file:
     if terminalLine == '':
         continue
 
     parse = terminalLine[:-1].split(' ')
-    # if command
+    # process commands
     if parse[0] == '$':
         cName = parse[1]
-        if cName == 'cd':
+        if cName == 'cd': # change current directory command
             dirName = parse[2]
             if dirName == '/': # go to root
                 currentDir = dirList[0]
@@ -93,6 +88,9 @@ for terminalLine in file:
         # if the file doesn't already exist, make it
         if not currentDir.getChild(name):
             newFile = File(name, currentDir, size)
+
+file.close()
+
 smallFolders = list(filter(lambda folder: folder.getSize() <= 100000, dirList))
 print(f"The sum of all the directories with a size of at most 100000 is: {sum(smallFolders)}")
 
@@ -101,5 +99,3 @@ neededSpace = 30000000 - freeSpace
 deleteTargets = list(filter(lambda folder: folder.getSize() >= neededSpace, dirList))
 deleteTargets.sort()
 print(f"The size of the smallest directory that could be deleted to free up enough space to update is: {deleteTargets[0].getSize()}")
-
-file.close()

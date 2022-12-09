@@ -1,4 +1,5 @@
 def eachUnique(test: str) -> bool:
+    """ Test if each character in the given string is unique """
     occurred = ''
     for item in test:
         if item in occurred:
@@ -7,7 +8,8 @@ def eachUnique(test: str) -> bool:
     return True
 
 
-def slide(target: str, newItem: str):
+def slide(target: str, newItem: str) -> str:
+    """ Removes the first character from the string and adds a new one """
     return target[1:] + newItem
 
 
@@ -24,7 +26,7 @@ for index, char in enumerate(signal):
     packetMarker = slide(packetMarker, char)
     messageMarker = slide(messageMarker, char)
 
-    # test
+    # test the markers
     if (not firstMarker) and eachUnique(packetMarker):
         firstMarker = index + 1
 

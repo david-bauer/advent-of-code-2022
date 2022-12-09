@@ -5,7 +5,7 @@ file.close()
 initStructure = initStructure.split('\n')
 instructions = instructions.split('\n')
 
-# make an array that holds all the crates at each position
+# make an array that represents the stacks of crates
 totalCrates = int(initStructure.pop().split('   ')[-1])
 cargo = [[] for i in range(totalCrates)]
 
