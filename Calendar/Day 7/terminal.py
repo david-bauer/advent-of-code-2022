@@ -46,16 +46,16 @@ class Directory(File):
         return None
 
 
+file = open('input')
+terminal = file.read().strip().split('\n')
+file.close()
+
 currentDir: Directory = Directory('/', None)
 dirList: [Directory] = [currentDir]
 
-file = open('input')
 # process the terminal output line by line
-for terminalLine in file:
-    if terminalLine == '':
-        continue
-
-    parse = terminalLine[:-1].split(' ')
+for line in terminal:
+    parse = line.split(' ')
     # process commands
     if parse[0] == '$':
         cName = parse[1]

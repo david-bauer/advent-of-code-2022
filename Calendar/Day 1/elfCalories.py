@@ -1,19 +1,20 @@
 file = open("input")
-# file = open("test")
-caloryCount = []
-elves = file.read().split('\n\n')
-for elf in elves:
-    backpack = elf.split('\n')
-    sum = 0
-    for item in backpack:
-        if item == '':
-            break
-        sum += int(item)
-    caloryCount.append(sum)
-caloryCount.sort(reverse=True)
-print(f"Part 1: The elf with the most calories has {caloryCount[0]} calories")
-top3Sum = 0
-for cal in caloryCount[0:3]:
-    top3Sum += cal
-print(f"Part 1: The top 3 elves with the most calories have {top3Sum} calories")
+elves = file.read().strip().split('\n\n')
 file.close()
+
+# order the elves by calorie count
+caloryCount = []
+
+for elf in elves:
+    # sum up the calories stored in each elf's backpack
+    backpack = elf.split('\n')
+    calories = [int(item) for item in backpack]
+    caloryCount.append(sum(calories))
+caloryCount.sort(reverse=True)
+
+# find the calories carried by the elf with the most calories
+print(f"Part 1: The elf with the most calories has {caloryCount[0]} calories")
+
+# find the total calories stored by the 3 elves with the most calories
+top3Sum = sum(caloryCount[0:3])
+print(f"Part 1: The top 3 elves with the most calories have {top3Sum} calories")

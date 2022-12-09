@@ -1,5 +1,5 @@
 file = open('input')
-initStructure, instructions = file.read().split('\n\n')
+initStructure, instructions = file.read().strip().split('\n\n')
 file.close()
 
 initStructure = initStructure.split('\n')
@@ -21,9 +21,6 @@ for row in initStructure:
 
 # read the instructions and modify the cargo as necessary
 for row in instructions:
-    if row == '':
-        continue
-
     parts = row.split(' ')
     numCratesToBeMoved = int(parts[1])
     src = int(parts[3]) - 1
