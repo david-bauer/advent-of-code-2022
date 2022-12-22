@@ -54,7 +54,7 @@ def scenicScore(forestMap: np.ndarray, treeLocation: tuple[int, int]) -> int:
     return toNorth * toEast * toSouth * toWest
 
 
-file = open('input')
+file = open('test')
 text = file.read().strip().split('\n')
 file.close()
 
